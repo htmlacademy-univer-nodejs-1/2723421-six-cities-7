@@ -7,9 +7,10 @@ export class HelpCommand implements CliCommand {
   public async run(): Promise<void> {
     console.log((chalk.bold`
 Доступные команды:
-  --help                Показать справку
-  --version             Показать версию приложения
-  --import <file>       Импортировать предложения из TSV
+  --help                            Показать справку
+  --version                         Показать версию приложения
+  --import <file>                   Импортировать предложения из TSV
+  --generate <n> <filepath> <url>   Сгенерировать тестовые предложения
 `));
   }
 }

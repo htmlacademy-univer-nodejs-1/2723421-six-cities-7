@@ -4,9 +4,10 @@ import { createInterface } from 'node:readline';
 import type { Offer } from '../types/offer.type.js';
 import { parseOffer } from './parse-offer.js';
 
-export async function readOffers(filePath: string): Promise<Offer[]> {
-  const offers: Offer[] = [];
-
+export async function readOffers(
+  filePath: string,
+  onOffer: (offer: Offer) => void | Promise<void>
+): Promise<void> {
   const stream = createReadStream(filePath, {
     encoding: 'utf-8'
   });
@@ -21,8 +22,8 @@ export async function readOffers(filePath: string): Promise<Offer[]> {
       continue;
     }
 
-    offers.push(parseOffer(line));
-  }
+    const offer = parseOffer(line);
 
-  return offers;
+    await onOffer(offer);
+  }
 }
