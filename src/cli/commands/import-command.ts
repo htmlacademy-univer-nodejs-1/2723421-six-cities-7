@@ -1,4 +1,5 @@
 import type { CliCommand } from './cli-command.interface.js';
+
 import { readOffers } from '../../shared/tsv-file-reader.js';
 
 export class ImportCommand implements CliCommand {
@@ -8,11 +9,11 @@ export class ImportCommand implements CliCommand {
     const filePath = args[0];
 
     if (!filePath) {
-      throw new Error('Не указан путь к tsv-файлу');
+      throw new Error('Не указан путь к TSV-файлу');
     }
 
-    const offers = await readOffers(filePath);
-
-    console.log(offers);
+    await readOffers(filePath, (offer) => {
+      console.log(offer);
+    });
   }
 }

@@ -1,0 +1,166 @@
+{
+  "offers": [
+    {
+      "id": "1",
+      "title": "Riverside apartment",
+      "description": "A bright apartment near the river with a spacious kitchen, comfortable workspace and a quiet bedroom.",
+      "city": "Amsterdam",
+      "previewImage": "img/apartment-01.jpg",
+      "images": [
+        "img/apartment-01.jpg",
+        "img/apartment-02.jpg",
+        "img/apartment-03.jpg",
+        "img/room.jpg",
+        "img/studio-01.jpg",
+        "img/studio-photos.jpg"
+      ],
+      "amenities": [
+        "Washer",
+        "Towels",
+        "Fridge"
+      ],
+      "author": {
+        "name": "Yana",
+        "email": "yana@mail.com",
+        "avatarUrl": "img/avatar-max.jpg",
+        "password": "yana123",
+        "type": "pro"
+      }
+    },
+    {
+      "id": "2",
+      "title": "Quiet room in Paris",
+      "description": "A cozy room in a peaceful district with natural light, a comfortable bed and easy access to public transport.",
+      "city": "Paris",
+      "previewImage": "img/room.jpg",
+      "images": [
+        "img/room.jpg",
+        "img/apartment-01.jpg",
+        "img/apartment-02.jpg",
+        "img/apartment-03.jpg",
+        "img/studio-01.jpg",
+        "img/studio-photos.jpg"
+      ],
+      "amenities": [
+        "Breakfast",
+        "Towels",
+        "Fridge"
+      ],
+      "author": {
+        "name": "Yana",
+        "email": "yana@mail.com",
+        "avatarUrl": "img/avatar-max.jpg",
+        "password": "yana123",
+        "type": "regular"
+      }
+    },
+    {
+      "id": "3",
+      "title": "Modern house in Cologne",
+      "description": "A modern house with a bright living room, a practical kitchen and enough space for a comfortable stay.",
+      "city": "Cologne",
+      "previewImage": "img/apartment-02.jpg",
+      "images": [
+        "img/apartment-02.jpg",
+        "img/apartment-01.jpg",
+        "img/apartment-03.jpg",
+        "img/room.jpg",
+        "img/studio-01.jpg",
+        "img/studio-photos.jpg"
+      ],
+      "amenities": [
+        "Air conditioning",
+        "Washer",
+        "Fridge"
+      ],
+      "author": {
+        "name": "Anna",
+        "email": "anna@mail.com",
+        "avatarUrl": "img/avatar-angelina.jpg",
+        "password": "anna123",
+        "type": "pro"
+      }
+    },
+    {
+      "id": "4",
+      "title": "Central apartment in Brussels",
+      "description": "A comfortable apartment close to the city centre with a calm atmosphere and everything needed for a short trip.",
+      "city": "Brussels",
+      "previewImage": "img/apartment-03.jpg",
+      "images": [
+        "img/apartment-03.jpg",
+        "img/apartment-01.jpg",
+        "img/apartment-02.jpg",
+        "img/room.jpg",
+        "img/studio-01.jpg",
+        "img/studio-photos.jpg"
+      ],
+      "amenities": [
+        "Laptop friendly workspace",
+        "Towels",
+        "Washer"
+      ],
+      "author": {
+        "name": "Alex",
+        "email": "alex@mail.com",
+        "avatarUrl": "img/avatar-max.jpg",
+        "password": "alex123",
+        "type": "regular"
+      }
+    },
+    {
+      "id": "5",
+      "title": "Comfortable hotel in Hamburg",
+      "description": "A comfortable hotel room near the centre with a bright interior, useful amenities and convenient transport nearby.",
+      "city": "Hamburg",
+      "previewImage": "img/studio-01.jpg",
+      "images": [
+        "img/studio-01.jpg",
+        "img/apartment-01.jpg",
+        "img/apartment-02.jpg",
+        "img/apartment-03.jpg",
+        "img/room.jpg",
+        "img/studio-photos.jpg"
+      ],
+      "amenities": [
+        "Breakfast",
+        "Air conditioning",
+        "Towels"
+      ],
+      "author": {
+        "name": "Maria",
+        "email": "maria@mail.com",
+        "avatarUrl": "img/avatar-angelina.jpg",
+        "password": "maria123",
+        "type": "pro"
+      }
+    },
+    {
+      "id": "6",
+      "title": "Bright room in Dusseldorf",
+      "description": "A bright and simple room in a quiet neighbourhood with a comfortable workspace and quick access to the city centre.",
+      "city": "Dusseldorf",
+      "previewImage": "img/studio-photos.jpg",
+      "images": [
+        "img/studio-photos.jpg",
+        "img/apartment-01.jpg",
+        "img/apartment-02.jpg",
+        "img/apartment-03.jpg",
+        "img/room.jpg",
+        "img/studio-01.jpg"
+      ],
+      "amenities": [
+        "Laptop friendly workspace",
+        "Fridge",
+        "Towels"
+      ],
+      "author": {
+        "name": "Nina",
+        "email": "nina@mail.com",
+        "avatarUrl": "img/avatar-max.jpg",
+        "password": "nina123",
+        "type": "regular"
+      }
+    }
+  ]
+}
