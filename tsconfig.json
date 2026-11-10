@@ -29,7 +29,7 @@
   },
   "include": [
     "src/**/*.ts"
-  ],
+, "src/app/application.ts"  ],
   "exclude": [
     "node_modules",
     "**/*.test.ts"
