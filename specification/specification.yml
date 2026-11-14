@@ -1,0 +1,696 @@
+openapi: 3.0.3
+
+info:
+  title: Six Cities API
+  version: 1.0.0
+  description: REST API сервиса «Шесть городов»
+
+servers:
+  - url: http://localhost:4000
+    description: Локальный сервер
+
+paths:
+  /users:
+    post:
+      summary: Создание нового пользователя
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - email
+                - password
+                - type
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  maxLength: 15
+                email:
+                  type: string
+                  format: email
+                avatar:
+                  type: string
+                password:
+                  type: string
+                  minLength: 6
+                  maxLength: 12
+                type:
+                  type: string
+                  enum:
+                    - regular
+                    - pro
+      responses:
+        '201':
+          description: Пользователь успешно создан
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Ошибка валидации данных
+        '409':
+          description: Пользователь с таким email уже существует
+
+  /login:
+    post:
+      summary: Вход пользователя
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Пользователь успешно авторизован
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        '401':
+          description: Неверный email или пароль
+
+    get:
+      summary: Проверка состояния пользователя
+      tags:
+        - Users
+      responses:
+        '200':
+          description: Пользователь авторизован
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Пользователь не авторизован
+
+  /offers:
+    get:
+      summary: Получение списка предложений
+      description: >
+        Возвращает список предложений, отсортированный по дате публикации
+        по убыванию. По умолчанию возвращается не более 60 предложений.
+      tags:
+        - Offers
+      parameters:
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 60
+      responses:
+        '200':
+          description: Список предложений успешно получен
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OfferShort'
+
+    post:
+      summary: Создание нового предложения
+      tags:
+        - Offers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOffer'
+      responses:
+        '201':
+          description: Предложение успешно создано
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Offer'
+        '400':
+          description: Ошибка валидации данных
+        '401':
+          description: Пользователь не авторизован
+
+  /offers/{offerId}:
+    get:
+      summary: Получение подробной информации о предложении
+      tags:
+        - Offers
+      parameters:
+        - name: offerId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Предложение успешно получено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Offer'
+        '404':
+          description: Предложение не найдено
+
+    patch:
+      summary: Редактирование предложения
+      tags:
+        - Offers
+      parameters:
+        - name: offerId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOffer'
+      responses:
+        '200':
+          description: Предложение успешно обновлено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Offer'
+        '400':
+          description: Ошибка валидации данных
+        '401':
+          description: Пользователь не авторизован
+        '403':
+          description: Пользователь не может редактировать чужое предложение
+        '404':
+          description: Предложение не найдено
+
+    delete:
+      summary: Удаление предложения
+      tags:
+        - Offers
+      parameters:
+        - name: offerId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Предложение успешно удалено
+        '401':
+          description: Пользователь не авторизован
+        '403':
+          description: Пользователь не может удалить чужое предложение
+        '404':
+          description: Предложение не найдено
+
+  /offers/premium:
+    get:
+      summary: Получение премиальных предложений для города
+      description: >
+        Возвращает не более трёх премиальных предложений,
+        отсортированных по дате публикации по убыванию.
+      tags:
+        - Offers
+      parameters:
+        - name: city
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - Paris
+              - Cologne
+              - Brussels
+              - Amsterdam
+              - Hamburg
+              - Dusseldorf
+      responses:
+        '200':
+          description: Список премиальных предложений
+          content:
+            application/json:
+              schema:
+                type: array
+                maxItems: 3
+                items:
+                  $ref: '#/components/schemas/OfferShort'
+
+  /offers/favorites:
+    get:
+      summary: Получение избранных предложений
+      tags:
+        - Offers
+      responses:
+        '200':
+          description: Список избранных предложений
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OfferShort'
+        '401':
+          description: Пользователь не авторизован
+
+  /offers/{offerId}/favorite:
+    post:
+      summary: Добавление предложения в избранное
+      tags:
+        - Offers
+      parameters:
+        - name: offerId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Предложение добавлено в избранное
+        '401':
+          description: Пользователь не авторизован
+        '404':
+          description: Предложение не найдено
+
+    delete:
+      summary: Удаление предложения из избранного
+      tags:
+        - Offers
+      parameters:
+        - name: offerId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Предложение удалено из избранного
+        '401':
+          description: Пользователь не авторизован
+        '404':
+          description: Предложение не найдено
+
+  /offers/{offerId}/comments:
+    get:
+      summary: Получение комментариев к предложению
+      description: >
+        Возвращает не более 50 последних комментариев.
+        Комментарии отсортированы по дате публикации по убыванию.
+      tags:
+        - Comments
+      parameters:
+        - name: offerId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Список комментариев
+          content:
+            application/json:
+              schema:
+                type: array
+                maxItems: 50
+                items:
+                  $ref: '#/components/schemas/Comment'
+        '404':
+          description: Предложение не найдено
+
+    post:
+      summary: Добавление комментария
+      tags:
+        - Comments
+      parameters:
+        - name: offerId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - text
+                - rating
+              properties:
+                text:
+                  type: string
+                  minLength: 5
+                  maxLength: 1024
+                rating:
+                  type: integer
+                  minimum: 1
+                  maximum: 5
+      responses:
+        '201':
+          description: Комментарий успешно создан
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        '400':
+          description: Ошибка валидации данных
+        '401':
+          description: Пользователь не авторизован
+        '404':
+          description: Предложение не найдено
+
+components:
+  schemas:
+    User:
+      type: object
+      required:
+        - name
+        - email
+        - type
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 15
+        email:
+          type: string
+          format: email
+        avatar:
+          type: string
+        type:
+          type: string
+          enum:
+            - regular
+            - pro
+
+    OfferShort:
+      type: object
+      required:
+        - title
+        - price
+        - housingType
+        - isFavorite
+        - publicationDate
+        - city
+        - previewImage
+        - isPremium
+        - rating
+        - commentCount
+      properties:
+        title:
+          type: string
+        price:
+          type: integer
+        housingType:
+          type: string
+          enum:
+            - apartment
+            - house
+            - room
+            - hotel
+        isFavorite:
+          type: boolean
+        publicationDate:
+          type: string
+          format: date-time
+        city:
+          type: string
+        previewImage:
+          type: string
+        isPremium:
+          type: boolean
+        rating:
+          type: number
+        commentCount:
+          type: integer
+
+    Offer:
+      type: object
+      required:
+        - title
+        - description
+        - publicationDate
+        - city
+        - previewImage
+        - images
+        - isPremium
+        - isFavorite
+        - rating
+        - housingType
+        - rooms
+        - guests
+        - price
+        - amenities
+        - author
+        - commentCount
+        - location
+      properties:
+        title:
+          type: string
+          minLength: 10
+          maxLength: 100
+        description:
+          type: string
+          minLength: 20
+          maxLength: 1024
+        publicationDate:
+          type: string
+          format: date-time
+        city:
+          type: string
+          enum:
+            - Paris
+            - Cologne
+            - Brussels
+            - Amsterdam
+            - Hamburg
+            - Dusseldorf
+        previewImage:
+          type: string
+        images:
+          type: array
+          minItems: 6
+          maxItems: 6
+          items:
+            type: string
+        isPremium:
+          type: boolean
+        isFavorite:
+          type: boolean
+        rating:
+          type: number
+          minimum: 1
+          maximum: 5
+        housingType:
+          type: string
+          enum:
+            - apartment
+            - house
+            - room
+            - hotel
+        rooms:
+          type: integer
+          minimum: 1
+          maximum: 8
+        guests:
+          type: integer
+          minimum: 1
+          maximum: 10
+        price:
+          type: integer
+          minimum: 100
+          maximum: 100000
+        amenities:
+          type: array
+          items:
+            type: string
+            enum:
+              - Breakfast
+              - Air conditioning
+              - Laptop friendly workspace
+              - Baby seat
+              - Washer
+              - Towels
+              - Fridge
+        author:
+          $ref: '#/components/schemas/User'
+        commentCount:
+          type: integer
+        location:
+          type: object
+          required:
+            - latitude
+            - longitude
+          properties:
+            latitude:
+              type: number
+            longitude:
+              type: number
+
+    CreateOffer:
+      type: object
+      required:
+        - title
+        - description
+        - city
+        - previewImage
+        - images
+        - isPremium
+        - housingType
+        - rooms
+        - guests
+        - price
+        - amenities
+        - location
+      properties:
+        title:
+          type: string
+          minLength: 10
+          maxLength: 100
+        description:
+          type: string
+          minLength: 20
+          maxLength: 1024
+        city:
+          type: string
+          enum:
+            - Paris
+            - Cologne
+            - Brussels
+            - Amsterdam
+            - Hamburg
+            - Dusseldorf
+        previewImage:
+          type: string
+        images:
+          type: array
+          minItems: 6
+          maxItems: 6
+          items:
+            type: string
+        isPremium:
+          type: boolean
+        housingType:
+          type: string
+          enum:
+            - apartment
+            - house
+            - room
+            - hotel
+        rooms:
+          type: integer
+          minimum: 1
+          maximum: 8
+        guests:
+          type: integer
+          minimum: 1
+          maximum: 10
+        price:
+          type: integer
+          minimum: 100
+          maximum: 100000
+        amenities:
+          type: array
+          items:
+            type: string
+        location:
+          type: object
+          required:
+            - latitude
+            - longitude
+          properties:
+            latitude:
+              type: number
+            longitude:
+              type: number
+
+    UpdateOffer:
+      type: object
+      properties:
+        title:
+          type: string
+          minLength: 10
+          maxLength: 100
+        description:
+          type: string
+          minLength: 20
+          maxLength: 1024
+        city:
+          type: string
+        previewImage:
+          type: string
+        images:
+          type: array
+          minItems: 6
+          maxItems: 6
+          items:
+            type: string
+        isPremium:
+          type: boolean
+        housingType:
+          type: string
+        rooms:
+          type: integer
+          minimum: 1
+          maximum: 8
+        guests:
+          type: integer
+          minimum: 1
+          maximum: 10
+        price:
+          type: integer
+          minimum: 100
+          maximum: 100000
+        amenities:
+          type: array
+          items:
+            type: string
+        location:
+          type: object
+          properties:
+            latitude:
+              type: number
+            longitude:
+              type: number
+
+    Comment:
+      type: object
+      required:
+        - text
+        - publicationDate
+        - rating
+        - author
+      properties:
+        text:
+          type: string
+          minLength: 5
+          maxLength: 1024
+        publicationDate:
+          type: string
+          format: date-time
+        rating:
+          type: integer
+          minimum: 1
+          maximum: 5
+        author:
+          $ref: '#/components/schemas/User'

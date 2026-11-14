@@ -8,12 +8,19 @@ import { HelpCommand } from './cli/commands/help-command.js';
 import { ImportCommand } from './cli/commands/import-command.js';
 import { VersionCommand } from './cli/commands/version-command.js';
 
+import 'reflect-metadata';
+
+import { createApplicationContainer } from './container.js';
+import { Component } from './types/component.enum.js';
+
+const container = createApplicationContainer();
+
 const cli = new CliApp();
 
 cli.registerCommands([
   new HelpCommand(),
   new VersionCommand(),
-  new ImportCommand(),
+  container.get<ImportCommand>(Component.ImportCommand),
   new GenerateCommand()
 ]);
 
