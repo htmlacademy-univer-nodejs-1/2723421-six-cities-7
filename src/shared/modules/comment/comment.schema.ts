@@ -24,5 +24,11 @@ export const CommentSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: true
+  },
+
+  offerId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Offer',
+    required: true
   }
 });

@@ -1,15 +1,15 @@
-import type { UserEntity } from '../user/user.entity.js';
-
 export class CommentEntity {
   public text: string;
   public publicationDate: Date;
   public rating: number;
-  public author: UserEntity;
+  public authorId: string;
+  public offerId: string;
 
   constructor(comment: CommentEntity) {
     this.text = comment.text;
     this.publicationDate = comment.publicationDate;
     this.rating = comment.rating;
-    this.author = comment.author;
+    this.authorId = comment.authorId;
+    this.offerId = comment.offerId;
   }
 }

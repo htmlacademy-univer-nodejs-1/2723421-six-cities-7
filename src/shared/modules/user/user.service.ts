@@ -3,11 +3,12 @@ import { injectable } from 'inversify';
 import type { UserService } from './user.service.interface.js';
 import { UserEntity } from './user.entity.js';
 import { UserModel } from './user.model.js';
+import { CreateUserDto } from './dto/create-user.dto.js';
 
 @injectable()
 export class DefaultUserService implements UserService {
-  public async create(user: UserEntity): Promise<UserEntity> {
-    const document = await UserModel.create(user);
+  public async create(dto: CreateUserDto): Promise<UserEntity> {
+    const document = await UserModel.create(dto);
 
     return new UserEntity({
       name: document.name,

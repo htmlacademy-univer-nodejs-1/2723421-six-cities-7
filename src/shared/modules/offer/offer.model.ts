@@ -1,5 +1,7 @@
-import { model } from 'mongoose';
+import { model, type InferSchemaType } from 'mongoose';
 
 import { OfferSchema } from './offer.schema.js';
 
-export const OfferModel = model('Offer', OfferSchema);
+export type OfferDocument = InferSchemaType<typeof OfferSchema>;
+
+export const OfferModel = model<OfferDocument>('Offer', OfferSchema);
