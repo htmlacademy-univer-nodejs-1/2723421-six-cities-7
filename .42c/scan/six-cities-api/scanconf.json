@@ -1,0 +1,817 @@
+{
+  "version": "2.0.0",
+  "runtimeConfiguration": {
+    "environment": "default",
+    "laxTestingModeEnabled": false,
+    "apiConnectivityCheck": true,
+    "logLevel": "error",
+    "logDestination": "stdout+platform",
+    "logMaxFileSize": 2147483648,
+    "requestHeaderNameRequestId": "x-scan-request-id",
+    "requestHeaderNameScenarioId": "x-scan-scenario-id",
+    "requestHeaderNameRequestType": "x-scan-request-type",
+    "requestFlowrate": 100,
+    "requestTimeout": 30,
+    "requestTlsInsecureSkipVerify": true,
+    "responseFollowRedirection": false,
+    "responseMaxBodySizeScan": 10485760,
+    "happyPathOnly": false,
+    "maxRequestRetryAttempts": 5,
+    "maxScanDuration": 1800,
+    "memoryLimit": 2147483648,
+    "memoryTimeSpan": 10,
+    "reportMaxRequestSizeHappyPath": 8092,
+    "reportMaxRequestSizeTest": 8092,
+    "reportIncludeRequestBody": true,
+    "reportIncludeResponseBody": true,
+    "reportMaxHttpResponseSizeHappyPath": 8092,
+    "reportMaxBodySizeHappyPath": 8092,
+    "reportMaxHttpResponseSizeTest": 8092,
+    "reportMaxBodySizeTest": 8092,
+    "reportIssuesOnly": false,
+    "reportMaxIssues": 1000,
+    "reportMaxSize": 20971520,
+    "reportGenerateCurlCommand": true,
+    "normalizeServerUrls": true
+  },
+  "customizations": {
+    "happyPaths": {
+      "retry": 1,
+      "responsePolicy": {
+        "httpStatusExpected": true,
+        "mustBeConformant": true
+      },
+      "httpStatusExpected": [
+        "2XX",
+        "404"
+      ]
+    },
+    "tests": {
+      "responsePolicy": {
+        "httpStatusExpected": true,
+        "mustBeConformant": true
+      }
+    },
+    "requests": {}
+  },
+  "operations": {
+    "/users:post": {
+      "operationId": "/users:post",
+      "scenarios": [
+        {
+          "key": "happy.path",
+          "fuzzing": true,
+          "requests": [
+            {
+              "$ref": "#/operations/~1users:post/request",
+              "fuzzing": true
+            }
+          ]
+        }
+      ],
+      "request": {
+        "operationId": "/users:post",
+        "request": {
+          "type": "42c",
+          "details": {
+            "url": "{{host}}/users",
+            "method": "POST",
+            "headers": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "requestBody": {
+              "mode": "json",
+              "json": {
+                "avatar": "tuxtjqwvlzjhenjjlcodtaikpvrhtldv",
+                "email": "email@email.com",
+                "name": "plpme",
+                "password": "espcbl",
+                "type": "pro"
+              }
+            }
+          }
+        },
+        "defaultResponse": "201",
+        "responses": {
+          "201": {
+            "expectations": {
+              "httpStatus": 201
+            }
+          },
+          "400": {
+            "expectations": {
+              "httpStatus": 400
+            }
+          },
+          "409": {
+            "expectations": {
+              "httpStatus": 409
+            }
+          }
+        }
+      }
+    },
+    "/login:post": {
+      "operationId": "/login:post",
+      "scenarios": [
+        {
+          "key": "happy.path",
+          "fuzzing": true,
+          "requests": [
+            {
+              "$ref": "#/operations/~1login:post/request",
+              "fuzzing": true
+            }
+          ]
+        }
+      ],
+      "request": {
+        "operationId": "/login:post",
+        "request": {
+          "type": "42c",
+          "details": {
+            "url": "{{host}}/login",
+            "method": "POST",
+            "headers": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "requestBody": {
+              "mode": "json",
+              "json": {
+                "email": "email@email.com",
+                "password": "mvmhgotysfosctrhyxztgreoeonrwgew"
+              }
+            }
+          }
+        },
+        "defaultResponse": "200",
+        "responses": {
+          "200": {
+            "expectations": {
+              "httpStatus": 200
+            }
+          },
+          "401": {
+            "expectations": {
+              "httpStatus": 401
+            }
+          }
+        }
+      }
+    },
+    "/login:get": {
+      "operationId": "/login:get",
+      "scenarios": [
+        {
+          "key": "happy.path",
+          "fuzzing": true,
+          "requests": [
+            {
+              "$ref": "#/operations/~1login:get/request",
+              "fuzzing": true
+            }
+          ]
+        }
+      ],
+      "request": {
+        "operationId": "/login:get",
+        "request": {
+          "type": "42c",
+          "details": {
+            "url": "{{host}}/login",
+            "method": "GET"
+          }
+        },
+        "defaultResponse": "200",
+        "responses": {
+          "200": {
+            "expectations": {
+              "httpStatus": 200
+            }
+          },
+          "401": {
+            "expectations": {
+              "httpStatus": 401
+            }
+          }
+        }
+      }
+    },
+    "/offers:get": {
+      "operationId": "/offers:get",
+      "scenarios": [
+        {
+          "key": "happy.path",
+          "fuzzing": true,
+          "requests": [
+            {
+              "$ref": "#/operations/~1offers:get/request",
+              "fuzzing": true
+            }
+          ]
+        }
+      ],
+      "request": {
+        "operationId": "/offers:get",
+        "request": {
+          "type": "42c",
+          "details": {
+            "url": "{{host}}/offers",
+            "method": "GET",
+            "queries": [
+              {
+                "key": "limit",
+                "value": 60
+              }
+            ]
+          }
+        },
+        "defaultResponse": "200",
+        "responses": {
+          "200": {
+            "expectations": {
+              "httpStatus": 200
+            }
+          }
+        }
+      }
+    },
+    "/offers:post": {
+      "operationId": "/offers:post",
+      "scenarios": [
+        {
+          "key": "happy.path",
+          "fuzzing": true,
+          "requests": [
+            {
+              "$ref": "#/operations/~1offers:post/request",
+              "fuzzing": true
+            }
+          ]
+        }
+      ],
+      "request": {
+        "operationId": "/offers:post",
+        "request": {
+          "type": "42c",
+          "details": {
+            "url": "{{host}}/offers",
+            "method": "POST",
+            "headers": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "requestBody": {
+              "mode": "json",
+              "json": {
+                "amenities": [
+                  "fgcliwchkykfxlhnfestqmmrrdhnuyun",
+                  "fgcliwchkykfxlhnfestqmmrrdhnuyun",
+                  "fgcliwchkykfxlhnfestqmmrrdhnuyun"
+                ],
+                "city": "Paris",
+                "description": "qyhhcbfkzfadysdnfzyfvluncq",
+                "guests": 2,
+                "housingType": "apartment",
+                "images": [
+                  "qwglnhrzbujutcecwxoxjjwdjssoeqez",
+                  "qwglnhrzbujutcecwxoxjjwdjssoeqez",
+                  "qwglnhrzbujutcecwxoxjjwdjssoeqez",
+                  "qwglnhrzbujutcecwxoxjjwdjssoeqez",
+                  "qwglnhrzbujutcecwxoxjjwdjssoeqez",
+                  "qwglnhrzbujutcecwxoxjjwdjssoeqez"
+                ],
+                "isPremium": false,
+                "location": {
+                  "latitude": 1.3142590919032238e+37,
+                  "longitude": 1.7463101052693628e+38
+                },
+                "previewImage": "lsmllovymjwrzrxqzxuiysoakbafilpw",
+                "price": 2858,
+                "rooms": 3,
+                "title": "dkaukrchzyjejviqqukacyclnunyelkpzayatbnpscryamsxtzzlydhwcmntmqs"
+              }
+            }
+          }
+        },
+        "defaultResponse": "201",
+        "responses": {
+          "201": {
+            "expectations": {
+              "httpStatus": 201
+            }
+          },
+          "400": {
+            "expectations": {
+              "httpStatus": 400
+            }
+          },
+          "401": {
+            "expectations": {
+              "httpStatus": 401
+            }
+          }
+        }
+      }
+    },
+    "/offers/{offerId}:get": {
+      "operationId": "/offers/{offerId}:get",
+      "scenarios": [
+        {
+          "key": "happy.path",
+          "fuzzing": true,
+          "requests": [
+            {
+              "$ref": "#/operations/~1offers~1{offerId}:get/request",
+              "fuzzing": true
+            }
+          ]
+        }
+      ],
+      "request": {
+        "operationId": "/offers/{offerId}:get",
+        "request": {
+          "type": "42c",
+          "details": {
+            "url": "{{host}}/offers/{offerId}",
+            "method": "GET",
+            "paths": [
+              {
+                "key": "offerId",
+                "value": "jqnspifsbqthxympghccrbtbsjdjsvbt"
+              }
+            ]
+          }
+        },
+        "defaultResponse": "200",
+        "responses": {
+          "200": {
+            "expectations": {
+              "httpStatus": 200
+            }
+          },
+          "404": {
+            "expectations": {
+              "httpStatus": 404
+            }
+          }
+        }
+      }
+    },
+    "/offers/{offerId}:patch": {
+      "operationId": "/offers/{offerId}:patch",
+      "scenarios": [
+        {
+          "key": "happy.path",
+          "fuzzing": true,
+          "requests": [
+            {
+              "$ref": "#/operations/~1offers~1{offerId}:patch/request",
+              "fuzzing": true
+            }
+          ]
+        }
+      ],
+      "request": {
+        "operationId": "/offers/{offerId}:patch",
+        "request": {
+          "type": "42c",
+          "details": {
+            "url": "{{host}}/offers/{offerId}",
+            "method": "PATCH",
+            "paths": [
+              {
+                "key": "offerId",
+                "value": "dgderoizemddnvmwrbwyptstwionqfjv"
+              }
+            ],
+            "headers": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "requestBody": {
+              "mode": "json",
+              "json": {
+                "amenities": [
+                  "kzpuccgjakdghnnpuuesmbhcsndrfffb",
+                  "kzpuccgjakdghnnpuuesmbhcsndrfffb"
+                ],
+                "city": "nvgczmqsiewfqwuetnzrgaauqnsfurbh",
+                "description": "raedqtkhjsrzbtczxygnqlnxigxkkcilxbwthshrzsyylirhccqfiahxlccjnuaezcsruwtwpvqlqcqwmlvbberjhtfwxrnimbhkbfrlxpsfldyshpenrtnyqrtqmcsfgmcfvmlpvjxysdsxwdhslivqrgzoxbuyrcisahypztbmkzcjxaobunpznzryjduxpgblscnlvbtnsperzzqdzqaenqeazrkmacquhnzjcqyzkiqwkiobkrdmonqrroxqbgkkjsvrklcqawhudcvdmqjynlupykksiirplpivrkzsshftixmxbegkbaqkeokepazdapulcckpfjdymozoknkkkjkjuswwipelzvtenryqwhrexwflzmpcgpdboejikwtpkqikxfhgftuwjhiusytjabdnjeqgftsbtkqdygdtafheffjiqhhvxljinstsbsrbejrdizczirkhfniglwbpjqoiwglorwrlmjtsdkbzuxqnlzutinayykwemubpxmzlexjqqyjesklkdsybtzcpijlxutuvsykdygjjbttdbdcpzcvbdrbvwmvmiaagoxkyocfdgdizzjqzlkclsmstkqazkdvhkxfgcumndogkuoufglfetgzotwfqmbaddywmjigjzostmjmouruqqhaoilvexpdgqpggmpdyridvsmzqyvloawlxsneyhlygsldvxlrrurkfyjyldqgfltzoqredyftdaxpebemcccrpwgkineywcrlyvgzinkv",
+                "guests": 9,
+                "housingType": "zbrmagzwgvvdhmxyktgymjhuunqgrsux",
+                "images": [
+                  "ddjmjnoncqyfgbxdaythwnpcgounnhkn",
+                  "ddjmjnoncqyfgbxdaythwnpcgounnhkn",
+                  "ddjmjnoncqyfgbxdaythwnpcgounnhkn",
+                  "ddjmjnoncqyfgbxdaythwnpcgounnhkn",
+                  "ddjmjnoncqyfgbxdaythwnpcgounnhkn",
+                  "ddjmjnoncqyfgbxdaythwnpcgounnhkn"
+                ],
+                "isPremium": false,
+                "location": {
+                  "latitude": 1.1237292979755814e+38,
+                  "longitude": 3.1364856302546162e+38
+                },
+                "previewImage": "zfhzoxncemguqntqijvekvahqizasvwm",
+                "price": 68857,
+                "rooms": 5,
+                "title": "uiibcryhksnrecvyjbbvspaiefhovrtrquigdygdjwohabhnvkrhekrwnuwbuzmvijwicigmptvqjlclbswsbpaouppdgjwe"
+              }
+            }
+          }
+        },
+        "defaultResponse": "200",
+        "responses": {
+          "200": {
+            "expectations": {
+              "httpStatus": 200
+            }
+          },
+          "400": {
+            "expectations": {
+              "httpStatus": 400
+            }
+          },
+          "401": {
+            "expectations": {
+              "httpStatus": 401
+            }
+          },
+          "403": {
+            "expectations": {
+              "httpStatus": 403
+            }
+          },
+          "404": {
+            "expectations": {
+              "httpStatus": 404
+            }
+          }
+        }
+      }
+    },
+    "/offers/{offerId}:delete": {
+      "operationId": "/offers/{offerId}:delete",
+      "scenarios": [
+        {
+          "key": "happy.path",
+          "fuzzing": true,
+          "requests": [
+            {
+              "$ref": "#/operations/~1offers~1{offerId}:delete/request",
+              "fuzzing": true
+            }
+          ]
+        }
+      ],
+      "request": {
+        "operationId": "/offers/{offerId}:delete",
+        "request": {
+          "type": "42c",
+          "details": {
+            "url": "{{host}}/offers/{offerId}",
+            "method": "DELETE",
+            "paths": [
+              {
+                "key": "offerId",
+                "value": "wxirmcrlilgvfpmpmprrkifublcbjdzu"
+              }
+            ]
+          }
+        },
+        "defaultResponse": "204",
+        "responses": {
+          "204": {
+            "expectations": {
+              "httpStatus": 204
+            }
+          },
+          "401": {
+            "expectations": {
+              "httpStatus": 401
+            }
+          },
+          "403": {
+            "expectations": {
+              "httpStatus": 403
+            }
+          },
+          "404": {
+            "expectations": {
+              "httpStatus": 404
+            }
+          }
+        }
+      }
+    },
+    "/offers/premium:get": {
+      "operationId": "/offers/premium:get",
+      "scenarios": [
+        {
+          "key": "happy.path",
+          "fuzzing": true,
+          "requests": [
+            {
+              "$ref": "#/operations/~1offers~1premium:get/request",
+              "fuzzing": true
+            }
+          ]
+        }
+      ],
+      "request": {
+        "operationId": "/offers/premium:get",
+        "request": {
+          "type": "42c",
+          "details": {
+            "url": "{{host}}/offers/premium",
+            "method": "GET",
+            "queries": [
+              {
+                "key": "city",
+                "value": "Amsterdam"
+              }
+            ]
+          }
+        },
+        "defaultResponse": "200",
+        "responses": {
+          "200": {
+            "expectations": {
+              "httpStatus": 200
+            }
+          }
+        }
+      }
+    },
+    "/offers/favorites:get": {
+      "operationId": "/offers/favorites:get",
+      "scenarios": [
+        {
+          "key": "happy.path",
+          "fuzzing": true,
+          "requests": [
+            {
+              "$ref": "#/operations/~1offers~1favorites:get/request",
+              "fuzzing": true
+            }
+          ]
+        }
+      ],
+      "request": {
+        "operationId": "/offers/favorites:get",
+        "request": {
+          "type": "42c",
+          "details": {
+            "url": "{{host}}/offers/favorites",
+            "method": "GET"
+          }
+        },
+        "defaultResponse": "200",
+        "responses": {
+          "200": {
+            "expectations": {
+              "httpStatus": 200
+            }
+          },
+          "401": {
+            "expectations": {
+              "httpStatus": 401
+            }
+          }
+        }
+      }
+    },
+    "/offers/{offerId}/favorite:post": {
+      "operationId": "/offers/{offerId}/favorite:post",
+      "scenarios": [
+        {
+          "key": "happy.path",
+          "fuzzing": true,
+          "requests": [
+            {
+              "$ref": "#/operations/~1offers~1{offerId}~1favorite:post/request",
+              "fuzzing": true
+            }
+          ]
+        }
+      ],
+      "request": {
+        "operationId": "/offers/{offerId}/favorite:post",
+        "request": {
+          "type": "42c",
+          "details": {
+            "url": "{{host}}/offers/{offerId}/favorite",
+            "method": "POST",
+            "paths": [
+              {
+                "key": "offerId",
+                "value": "uhqcxzxdyiqgmokvevahknmupsoiwkqs"
+              }
+            ]
+          }
+        },
+        "defaultResponse": "200",
+        "responses": {
+          "200": {
+            "expectations": {
+              "httpStatus": 200
+            }
+          },
+          "401": {
+            "expectations": {
+              "httpStatus": 401
+            }
+          },
+          "404": {
+            "expectations": {
+              "httpStatus": 404
+            }
+          }
+        }
+      }
+    },
+    "/offers/{offerId}/favorite:delete": {
+      "operationId": "/offers/{offerId}/favorite:delete",
+      "scenarios": [
+        {
+          "key": "happy.path",
+          "fuzzing": true,
+          "requests": [
+            {
+              "$ref": "#/operations/~1offers~1{offerId}~1favorite:delete/request",
+              "fuzzing": true
+            }
+          ]
+        }
+      ],
+      "request": {
+        "operationId": "/offers/{offerId}/favorite:delete",
+        "request": {
+          "type": "42c",
+          "details": {
+            "url": "{{host}}/offers/{offerId}/favorite",
+            "method": "DELETE",
+            "paths": [
+              {
+                "key": "offerId",
+                "value": "dxksrhgwvwtuobawwqxeivsqcysvgqfp"
+              }
+            ]
+          }
+        },
+        "defaultResponse": "200",
+        "responses": {
+          "200": {
+            "expectations": {
+              "httpStatus": 200
+            }
+          },
+          "401": {
+            "expectations": {
+              "httpStatus": 401
+            }
+          },
+          "404": {
+            "expectations": {
+              "httpStatus": 404
+            }
+          }
+        }
+      }
+    },
+    "/offers/{offerId}/comments:get": {
+      "operationId": "/offers/{offerId}/comments:get",
+      "scenarios": [
+        {
+          "key": "happy.path",
+          "fuzzing": true,
+          "requests": [
+            {
+              "$ref": "#/operations/~1offers~1{offerId}~1comments:get/request",
+              "fuzzing": true
+            }
+          ]
+        }
+      ],
+      "request": {
+        "operationId": "/offers/{offerId}/comments:get",
+        "request": {
+          "type": "42c",
+          "details": {
+            "url": "{{host}}/offers/{offerId}/comments",
+            "method": "GET",
+            "paths": [
+              {
+                "key": "offerId",
+                "value": "bkhksfpvyffpvtkgtjxqtjalckbiaxtx"
+              }
+            ]
+          }
+        },
+        "defaultResponse": "200",
+        "responses": {
+          "200": {
+            "expectations": {
+              "httpStatus": 200
+            }
+          },
+          "404": {
+            "expectations": {
+              "httpStatus": 404
+            }
+          }
+        }
+      }
+    },
+    "/offers/{offerId}/comments:post": {
+      "operationId": "/offers/{offerId}/comments:post",
+      "scenarios": [
+        {
+          "key": "happy.path",
+          "fuzzing": true,
+          "requests": [
+            {
+              "$ref": "#/operations/~1offers~1{offerId}~1comments:post/request",
+              "fuzzing": true
+            }
+          ]
+        }
+      ],
+      "request": {
+        "operationId": "/offers/{offerId}/comments:post",
+        "request": {
+          "type": "42c",
+          "details": {
+            "url": "{{host}}/offers/{offerId}/comments",
+            "method": "POST",
+            "paths": [
+              {
+                "key": "offerId",
+                "value": "emvmxfqcoqkscoxmahomecbshyfndspu"
+              }
+            ],
+            "headers": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "requestBody": {
+              "mode": "json",
+              "json": {
+                "rating": 2,
+                "text": "yrcchdpgkvbxbattdp"
+              }
+            }
+          }
+        },
+        "defaultResponse": "201",
+        "responses": {
+          "201": {
+            "expectations": {
+              "httpStatus": 201
+            }
+          },
+          "400": {
+            "expectations": {
+              "httpStatus": 400
+            }
+          },
+          "401": {
+            "expectations": {
+              "httpStatus": 401
+            }
+          },
+          "404": {
+            "expectations": {
+              "httpStatus": 404
+            }
+          }
+        }
+      }
+    }
+  },
+  "environments": {
+    "default": {
+      "variables": {
+        "host": {
+          "from": "environment",
+          "name": "SCAN42C_HOST",
+          "required": false,
+          "default": "http://localhost:4000"
+        }
+      }
+    }
+  }
+}
